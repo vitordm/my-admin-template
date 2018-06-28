@@ -15,7 +15,8 @@ export class AuthService {
     //return this.http.post<User>("/api/auth.php", {username, password});
 
     if (user.email != "vitor@teste.com") {
-      return Observable.throw("User inválido");
+      //return Observable.throw("User inválido");
+      return of(null);
     }
 
     let userLogado = new User();
