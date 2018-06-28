@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Acesso } from '../../models/acesso.models';
 
 @Component({
   selector: 'app-login',
@@ -7,14 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  @Input() acesso : Acesso
+
   constructor() { }
 
   ngOnInit() {
+    this.acesso = new Acesso();
   }
 
-  loginUser(event : Event) {
+  loginUser(event: Event) {
     event.preventDefault();
-    console.log(event);
+
+    console.log(this.acesso);
+
   }
 
 }
