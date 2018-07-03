@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Acesso } from '../../models/acesso.models';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  @Input() acesso : Acesso
+  @Input() acesso: Acesso;
 
   constructor(
-    private auth : AuthService,
-    private router : Router
+    private auth: AuthService,
+    private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -28,12 +30,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.auth.realizarLogin(this.acesso)
-      .subscribe((user) =>  {
+      .subscribe((user) => {
         console.log(user);
         if (user) {
-          this.router.navigate(["home"]);
+          this.router.navigate(['home']);
         }
-        
+
       }, (e) => {
         console.log(e);
       })
