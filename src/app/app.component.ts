@@ -10,12 +10,13 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
 
   title = 'app';
-  isLogged$: Observable<boolean>;
+  isLogged : boolean = false;
 
   constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
-    this.isLogged$ = this.auth.isLogged();
+    this.isLogged = this.auth.isLogged;
+    this.auth.loginRealizado.subscribe(login => this.isLogged = login);
   }
 
 }

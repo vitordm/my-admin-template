@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
@@ -9,6 +9,8 @@ import { Acesso } from '../models/acesso.models';
 })
 export class AuthService {
 
+  loginRealizado = new EventEmitter<boolean>();
+
   constructor(private http: HttpClient) { }
 
   realizarLogin(user: Acesso): Observable<User> {
@@ -16,6 +18,7 @@ export class AuthService {
 
     if (user.email != "vitor@teste.com") {
       //return Observable.throw("User inválido");
+      this.loginRealizado.emit(false);
       return of(null);
     }
 
@@ -28,7 +31,7 @@ export class AuthService {
 
     localStorage.removeItem("user");
     localStorage.setItem("user", JSON.stringify(userLogado));
-
+    this.loginRealizado.emit(true);
     return of(userLogado);
   }
 
@@ -47,8 +50,9 @@ export class AuthService {
     return userLogado;
   }
 
-  isLogged(): Observable<boolean> {
+  get isLogged(): boolean {
     const user = this.getUsuarioLogado();
-    return of(user !== null);
+    //return of(user !== null);
+    return user !== null;
   }
 }
