@@ -1,8 +1,9 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { User } from '../models/user.model';
-import { Acesso } from '../models/acesso.models';
+import { Acesso } from './acesso';
+import { HttpClient } from "@angular/common/http";
+import { of, Observable } from 'rxjs';
+
+import { User } from "./user";
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +23,12 @@ export class AuthService {
       return of(null);
     }
 
-    let userLogado = new User();
-    userLogado.id = 1;
-    userLogado.email = user.email;
-    userLogado.nome = "Vitor";
-    userLogado.token = "AISNFIOSANFIOASNEWET45252332FSDFSS";
+    let userLogado: User = {
+      id: 1,
+      email: user.email,
+      nome: "Vitor",
+      token: "AISNFIOSANFIOASNEWET45252332FSDFSS",
+    }
 
 
     localStorage.removeItem("user");
@@ -41,12 +43,13 @@ export class AuthService {
       return null;
     }
 
-    let userJson = JSON.parse(user);
-    let userLogado = new User();
-    userLogado.id = userJson.id;
+    let userLogado = JSON.parse(user) as User;
+    //console.log( {name: "UserJSON", field:userJson} );
+    //let userLogado: (User)userJson;
+    /*userLogado.id = userJson.id;
     userLogado.email = userJson.email;
     userLogado.nome = userJson.nome;
-    userLogado.token = userJson.nome;
+    userLogado.token = userJson.nome;*/
     return userLogado;
   }
 

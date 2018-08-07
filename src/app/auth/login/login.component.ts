@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Acesso } from '../models/acesso.models';
-import { AuthService } from '../services/auth.service';
+import { Acesso } from '../acesso';
+import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +15,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router
-  ) { }
+  ) { 
+    this.acesso = { email: null, password: null };
+  }
 
   ngOnInit() {
-    this.acesso = new Acesso();
     if (this.auth.isLogged) {
       this.router.navigate(["/"]);
     }
