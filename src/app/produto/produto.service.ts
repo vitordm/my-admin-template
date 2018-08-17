@@ -23,6 +23,6 @@ export class ProdutoService {
   }
 
   public edit(produto: Produto) {
-    return this.http.put(`/api/Produto/${produto.Id}`, produto);
+    return this.http.put(`/api/Produto/${produto.id}`, produto);
   }
 }

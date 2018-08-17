@@ -5,10 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { ProdutoCadastroComponent } from './produto-cadastro/produto-cadastro.component';
 import { ProdutoListaComponent } from './produto-lista/produto-lista.component';
 import { ProdutoRoutingModule } from './produto-routing.module';
+import { AuthModule } from "../auth/auth.module";
 
 @NgModule({
   imports: [
     CommonModule,
+    AuthModule,
     ProdutoRoutingModule,
     FormsModule
   ],

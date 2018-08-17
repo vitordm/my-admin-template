@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
+
 
 @Component({
   selector: 'app-produto-cadastro',
@@ -13,17 +16,25 @@ export class ProdutoCadastroComponent implements OnInit {
   public mensagemSucesso : string = '';
 
   model : any = {};
+  produto : Produto;
 
-  @Input() produto : Produto;
-
-  constructor(private produtoService : ProdutoService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private produtoService : ProdutoService
+  ) { }
 
   ngOnInit() {
-    if (!this.produto) {
+    let produto = this.activatedRoute.snapshot.data.produto;
+
+    if (produto) {
+      this.produto = produto;
+      this.model.titulo = this.produto.titulo;
+      this.model.valor = this.produto.valor;
+    } else {
       this.produto = {
-        Id: 0,
-        Titulo: "",
-        Valor: 0
+        id: 0,
+        titulo: "",
+        valor: 0
       };
     }
   }
@@ -31,7 +42,7 @@ export class ProdutoCadastroComponent implements OnInit {
   onSubmit() {
     try {
       this.modelToProduto();
-      if (this.produto.Id == 0) {
+      if (this.produto.id == 0) {
         this.produtoService.add(this.produto)
           .subscribe(() => {
             this.mensagemSucesso = "Dados Salvos com sucesso!";
@@ -59,11 +70,11 @@ export class ProdutoCadastroComponent implements OnInit {
     let titulo = this.model.titulo;
     if (!titulo || !titulo.length)
       throw "Dados inválidos para o título!";
-    this.produto.Titulo = this.model.titulo;
+    this.produto.titulo = this.model.titulo;
 
     if (this.model.valor) {
       try {
-        this.produto.Valor = parseFloat(this.model.valor);  
+        this.produto.valor = parseFloat(this.model.valor);  
       } catch (error) {
         throw "Dados inválidos para o valor!";
       }

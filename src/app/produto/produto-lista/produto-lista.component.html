@@ -1,4 +1,28 @@
-<p>
-  produto-lista works!
-</p>
-<button (click)="teste()">Teste</button>
+<div class="col-lg-12">
+  <h1>Lista de Produtos</h1>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Titulo</th>
+        <th>Valor</th>
+        <th><i class="fa fa-cog" aria-hidden="true"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos$ | async">
+        <td>{{produto.id}}</td>
+        <td>{{produto.titulo}}</td>
+        <td>{{produto.valor}}</td>
+        <th>
+          <button class="btn btn-warning" style="margin-right:5px" (click)="editar(produto)">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-danger">
+              <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>

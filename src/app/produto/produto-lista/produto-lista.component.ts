@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
+
 import { ProdutoService } from '../produto.service';
+import { Produto } from '../produto';
 
 @Component({
   selector: 'app-produto-lista',
@@ -8,18 +12,18 @@ import { ProdutoService } from '../produto.service';
 })
 export class ProdutoListaComponent implements OnInit {
 
-  constructor(private produtoService : ProdutoService) { }
+  produtos$ : Observable<Produto[]>;
+
+  constructor(private produtoService : ProdutoService, private router: Router) { }
 
   ngOnInit() {
-    
+    this.produtos$ = this.produtoService.lista()
   }
 
-  teste() {
+  editar(produto: Produto) {
     debugger;
-    this.produtoService.lista()
-      .subscribe(p => {
-        console.log(p);
-      });
+    this.router.navigate([
+      "produto", produto.id, "edit"
+    ]);
   }
-
 }
