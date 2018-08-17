@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProdutoService } from '../produto.service';
 
 @Component({
   selector: 'app-produto-lista',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProdutoListaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private produtoService : ProdutoService) { }
 
   ngOnInit() {
+    
+  }
+
+  teste() {
+    debugger;
+    this.produtoService.lista()
+      .subscribe(p => {
+        console.log(p);
+      });
   }
 
 }
