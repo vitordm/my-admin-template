@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthModule } from './auth/auth.module';
 import { TemplatesModule } from './templates/templates.module';
+import { ProdutoModule } from './produto/produto.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { TemplatesModule } from './templates/templates.module';
     BrowserModule,
     AuthModule,
     TemplatesModule,
+    ProdutoModule,
 
     AppRoutingModule,
     FormsModule

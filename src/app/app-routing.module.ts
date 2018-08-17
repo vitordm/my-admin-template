@@ -6,17 +6,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  {
-    path: "auth",
-    loadChildren: "app/auth/auth.module#AuthModule"
-  },
+  { path: "auth", loadChildren: "./auth/auth.module#AuthModule" },
   { path: '404', component: NotFoundComponent, canActivate: [AuthGuard] },
-  {
-    path: '',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard], },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'produtos', loadChildren: "./produto/produto.module#ProdutoModule"},
   { path: '**', redirectTo: '/404' }
 ];
 
